@@ -30,4 +30,14 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
+    //methods for search
+    public Page<Book> findBookByTitle(String title, Pageable pageable){
+        return bookRepository.findByTitle(title,pageable);
+    }
+
+    public Page<Book> findBookByAuthor(String author, Pageable pageable){
+        return bookRepository.findByTitle(author,pageable);
+    }
+
+
 }

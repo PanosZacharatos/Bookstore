@@ -23,10 +23,19 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping
-    public ResponseEntity<?> getAllBooks(@PageableDefault(size = 10) Pageable pageable) {
+    public ResponseEntity<?> getAllBooks(@PageableDefault(size = 10) Pageable pageable,@RequestParam(required = false)String title,@RequestParam(required = false)String author) {
         //return bookService.findAllBooks();
         try {
-            Page<Book> books = bookService.findAllBooks(pageable);
+            Page<Book> books;
+            if(title != null){
+                books = bookService.findBookByTitle(title,pageable);
+            }
+            else if(author != null){
+                books = bookService.findBookByAuthor(author,pageable);
+            }
+            else{
+                books = bookService.findAllBooks(pageable);
+            }
             return ResponseEntity.ok(books);
         } catch (Exception e) {
             //return exception in case no response entity returned
