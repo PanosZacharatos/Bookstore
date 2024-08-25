@@ -4,6 +4,9 @@ import com.example.bookstore.Models.Book;
 import com.example.bookstore.Services.BookService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +23,10 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping
-    public ResponseEntity<?> getAllBooks() {
+    public ResponseEntity<?> getAllBooks(@PageableDefault(size = 10) Pageable pageable) {
         //return bookService.findAllBooks();
         try {
-            List<Book> books = bookService.findAllBooks();
+            Page<Book> books = bookService.findAllBooks(pageable);
             return ResponseEntity.ok(books);
         } catch (Exception e) {
             //return exception in case no response entity returned
