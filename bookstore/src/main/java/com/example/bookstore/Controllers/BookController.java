@@ -22,6 +22,13 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    // new message to homepage
+    @GetMapping("/")
+    private String welcomeMsg(){
+        return "Welcome to Bookstore";
+    }
+
+
     @GetMapping
     public ResponseEntity<?> getAllBooks(@PageableDefault(size = 10) Pageable pageable,@RequestParam(required = false)String title,@RequestParam(required = false)String author) {
         //return bookService.findAllBooks();
