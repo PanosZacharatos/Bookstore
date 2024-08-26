@@ -16,20 +16,20 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/")
 @Valid
 public class BookController {
     @Autowired
     private BookService bookService;
 
     // new message to homepage
-    @GetMapping("/")
+    @GetMapping
     private String welcomeMsg(){
         return "Welcome to Bookstore";
     }
 
 
-    @GetMapping
+    @GetMapping("/books")
     public ResponseEntity<?> getAllBooks(@PageableDefault(size = 10) Pageable pageable,@RequestParam(required = false)String title,@RequestParam(required = false)String author) {
         //return bookService.findAllBooks();
         try {
@@ -51,7 +51,7 @@ public class BookController {
     }
 
     // return Entity if book with given id exists or 404 not found
-    @GetMapping("/{id}")
+    @GetMapping("/books/{id}")
     public ResponseEntity<?> getBookById(@PathVariable Long id){
         try {
             //attempt to find the book
@@ -64,7 +64,7 @@ public class BookController {
         }
     }
 
-    @PostMapping
+    @PostMapping("books")
     public ResponseEntity<?> createBook(@Valid @RequestBody Book book){
         //return bookService.saveBook(book);
         try {
@@ -76,7 +76,7 @@ public class BookController {
     }
 
     //return entity with updated fields or 404 not found
-    @PutMapping("/{id}")
+    @PutMapping("/books/{id}")
     public ResponseEntity<?> updateBook(@PathVariable Long id,@Valid @RequestBody Book book) {
         try {
             return bookService.findBookById(id)
@@ -96,7 +96,7 @@ public class BookController {
     }
 
     //delete book by its id or 404 not found
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/books/{id}")
     public ResponseEntity<?> deleteBook(@PathVariable Long id) {
         try {
             return bookService.findBookById(id)
