@@ -108,6 +108,19 @@
         </dependency>
     </dependencies>
 
+	<profiles>
+		<profile>
+			<id>test</id>
+			<properties>
+				<spring.profiles.active>test</spring.profiles.active>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+	</profiles>
+
+
 	<build>
 		<plugins>
 			<plugin>
