@@ -68,4 +68,8 @@ Instructions of necessary setups and run the application with examples provided:
 
 
 
-    
+Dockerize the application: 
+    A Dockerfile was created in the root application of the project to dockerize the application. It uses openjdk:17-slim as a base image  and sets the app inside the container. It copies the jar file and exports port 8080 where the application runs.
+    -Instructions how to run: In the terminal in the root directory of the project execute the command mvn clean package to produce the .jar file. After clean builded successfully, in the same directory run the following commands 1) docker build -t bookstore .
+    which builds the docker image named bookstore and 2) docker run -p 8080:8080 bookstore which starts the container.
+    -Testing application: As before you may use an api client programm to test the endpoints as described above.
