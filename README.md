@@ -23,4 +23,49 @@ Deployment:
     -Heroku: The application is deployed in Heroku.
 
 
-Instructions of necessary setups and run the application with examples provided
+Instructions of necessary setups and run the application with examples provided:
+
+-Database setup instructions:
+    -Installations: PostgreSQL should be installed in your system.
+    -Create the database: If PostgreSQL is installed, you may run the following commands from a terminal: 1)psql -U postgres 
+    2)CREATE DATABASE bookstore; 3)\l -> to make sure database was created.
+    -Configurations: Configurations are already set up in application.properties (username and password: postgres and running port in 5433).
+
+
+-Run the application: 
+    -Set up: Please be sure that JDK 17 is installed, also an IDE (InteliJ is recommended), and maven is supported
+    -Steps: After cloning the project from github(link is given through mail) import the project in your prefered ide
+    -Configurations: Project SDK must be Java 17.
+    -Run the application: Run BookstoreApplication.java 
+    -Access application: Once the application is running you can access locally at "http://localhost:8080/"
+
+
+-Testing the endpoints(Postman is recommended):
+    -Prerequisites: Make sure the application is running.
+    -Set up: Import the collection given in the mail.
+    -Details: application runs on port 8080, the URL is http://localhost:8080/books.
+    -Additional: For POST and PUT requests, set the body type to raw and select JSON from the dropdown menu. Then, input the JSON payload
+    -Authentication: As basic authentication is implemented in authorization tab choose Basic Auth. Username is set to "user" and password to "password"
+
+
+-Implementation details and explanation:
+    Security: The application uses Spring Security for basic authentication, ensuring endpoints require username and password to access and protects endpoints from unauthorized access.
+
+    Pagination: The application supports pagination through spring's Pageable interface. This allows for subsets asking in requests using the parameters page and size. Example http://localhost:8080/books?page=0&size=5 brings first page with(up to) 5 entries.
+
+    Search Functionality: The application allows search by fields author and title. Implemented using Spring Data JPA repositories, where methods findBookByTitle and findBookByAuthor map to SQL queries. Example http://localhost:8080/books?title=Title_1 brings all books with title 1.
+
+    JPA and Hibernate: Used for ORM, simplifies database integrations into methods.
+
+    Springboot: Manages enerything from database connection to MVC setup.
+
+    Unit Testing: Ensures functionality and reliability of its components. Tests are crafted using JUnit and Mockito. Every endpoint has 4-5 methods for cases to be considered (happy path,service exception,book not found etc) to cover basic test scenarion of each endpoint.
+
+
+-Testing unit tests:
+    -Configurations: All configurations are already set up and imported through maven dependencies.
+    -Run unit tests: You may run BookControllerTest class for all tests to be executed or you may run seperately each method to run along and check its functionality.
+
+
+
+    
